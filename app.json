@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "Ghithaa",
+    "slug": "ghithaa-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "ghithaa",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash/ghithaa-wordmark.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#2C666E"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yumealz.ghithaa2.dev"
+    },
+    "android": {
+      "package": "com.yumealz.ghithaa2.dev",
+      "adaptiveIcon": {
+        "backgroundColor": "#2C666E",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-localization",
+      "expo-image"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
