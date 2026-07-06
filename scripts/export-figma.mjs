@@ -57,7 +57,8 @@ try {
   await page.goto(pageUrl, { waitUntil: 'networkidle0', timeout: 120000 });
   await page.evaluate(() => document.fonts.ready);
 
-  console.log('Converting 14 screens to Figma clipboard payload...');
+  const screenCount = await page.evaluate(() => document.querySelectorAll('.screen-wrap').length);
+  console.log(`Converting ${screenCount} screens to Figma clipboard payload...`);
 
   const payload = await page.evaluate(async () => {
     const { generateFromElements, inlineComputedStyles } = await import(
@@ -108,16 +109,16 @@ try {
 </head>
 <body>
   <h1>Ghithaa Mobile → Figma</h1>
-  <p>All <strong>14 screens</strong> are ready. One click copies them for Figma.</p>
+  <p>All <strong>${screenCount} screens</strong> are ready. One click copies them for Figma.</p>
   <ol>
     <li>Click the button below</li>
     <li>Open <a href="https://www.figma.com" target="_blank">figma.com</a> → New design file</li>
     <li>Click the canvas → press <strong>Ctrl+V</strong></li>
   </ol>
-  <button type="button" id="copy">Copy all 14 screens for Figma</button>
+  <button type="button" id="copy">Copy all ${screenCount} screens for Figma</button>
   <p id="status"></p>
   <div class="box">
-    <strong>Includes:</strong> Splash, Onboarding, City, Login, Home, Menu, Plans, Subscribe, Orders, Wallet, Profile, Meal Detail, Subscribe Meals
+    <strong>Includes:</strong> Splash, Onboarding (3), City, Login, Signup, Home, Menu, Plans, Subscribe, Orders, Wallet, Profile, Meal Detail, Subscribe Meals
   </div>
   <script id="figma-payload" type="application/json">${JSON.stringify(payload)}</script>
   <script>
