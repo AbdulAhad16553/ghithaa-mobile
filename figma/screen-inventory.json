@@ -1,0 +1,175 @@
+{
+  "project": "Ghithaa Mobile",
+  "version": "1.0.0",
+  "frame": { "width": 390, "height": 844, "device": "iPhone 14 / Android reference" },
+  "assets": {
+    "logo": "assets/brand/ghithaa-logo.png",
+    "wordmark": "assets/splash/ghithaa-wordmark.png",
+    "app-icon": "assets/icon.png",
+    "splash": "assets/splash/ghithaa-wordmark.png",
+    "plan-images": [
+      "https://ghithaa.com/static/frontend/appiq/assets/images/how1.png",
+      "https://ghithaa.com/static/frontend/appiq/assets/images/how2.png",
+      "https://ghithaa.com/static/frontend/appiq/assets/images/how3.png"
+    ]
+  },
+  "flows": [
+    {
+      "id": "auth",
+      "name": "Auth & onboarding",
+      "screens": ["splash", "onboarding-1", "onboarding-2", "onboarding-3", "city", "login", "signup"]
+    },
+    {
+      "id": "main-tabs",
+      "name": "Main tabs",
+      "screens": ["home", "orders", "wallet", "profile"]
+    },
+    {
+      "id": "browse",
+      "name": "Menu & plans",
+      "screens": ["menu", "meal-detail", "plans"]
+    },
+    {
+      "id": "subscribe",
+      "name": "Subscription",
+      "screens": ["subscribe-config", "subscribe-meals"]
+    }
+  ],
+  "screens": [
+    {
+      "id": "splash",
+      "file": "app/index.tsx + AnimatedSplash",
+      "background": "#2C666E",
+      "elements": ["Centered Ghithaa wordmark", "Subtle pulse animation (note in prototype)"]
+    },
+    {
+      "id": "onboarding-1",
+      "file": "app/(auth)/onboarding.tsx",
+      "slides": 3,
+      "elements": ["Language toggle top-right", "Full-bleed gradient card per slide", "Icon in circle", "Title + body", "Dot pager", "Skip + Next buttons", "Mesh warm background"]
+    },
+    {
+      "id": "city",
+      "file": "app/(auth)/city.tsx",
+      "elements": ["Title: Choose city", "8 city rows with radio selection", "Compact list cards", "Continue CTA bottom"]
+    },
+    {
+      "id": "login",
+      "file": "app/(auth)/login.tsx",
+      "elements": ["Hero gradient header with wordmark + tagline", "Bottom sheet white card", "SA +966 phone field", "Continue button", "Guest link", "Language toggle"]
+    },
+    {
+      "id": "signup",
+      "file": "app/(auth)/signup.tsx",
+      "elements": ["Similar to login", "Name, email, phone, password fields"]
+    },
+    {
+      "id": "home",
+      "file": "app/(tabs)/index.tsx",
+      "elements": [
+        "Mesh warm background",
+        "Hero card: wordmark, bell, greeting, city pill, trust chips (4 meals)",
+        "PromoBanner carousel",
+        "TodayMenuPreview carousel",
+        "GlassCard: Day rhythm + MealSlotBar",
+        "GlassCard: Our Plans + 3 PlanPill orbit cards",
+        "GlassCard: About + FeatureStrip",
+        "WhatsApp FAB bottom-right",
+        "Floating tab bar"
+      ]
+    },
+    {
+      "id": "menu",
+      "file": "app/(tabs)/menu.tsx",
+      "elements": [
+        "Compact hero gradient with wordmark",
+        "DaySelector horizontal week strip",
+        "MealSlotBar dense centered",
+        "Meal grid 2 columns",
+        "MealGridCard with image, macros, selected state"
+      ]
+    },
+    {
+      "id": "meal-detail",
+      "file": "app/meal/[id].tsx",
+      "elements": ["Food hero image", "MacroStrip", "Title, description", "Add to plan CTA"]
+    },
+    {
+      "id": "plans",
+      "file": "app/(tabs)/plans.tsx",
+      "elements": [
+        "Plan hero with gradient + food image",
+        "Plan title + description",
+        "MealSlotBar filter",
+        "MealPlanComboCard list (price, slots, popular badge)"
+      ]
+    },
+    {
+      "id": "subscribe-config",
+      "file": "app/subscribe/[plan].tsx",
+      "elements": [
+        "Plan combo hero gradient",
+        "Extra addons steppers (main + side)",
+        "Off days chips + 7 day row",
+        "Duration chips: 1 Week / 1 Month / 3 Months",
+        "Footer total + Next button"
+      ]
+    },
+    {
+      "id": "subscribe-meals",
+      "file": "app/subscribe/meals.tsx",
+      "elements": ["Date rows", "Meal slots under dates", "Single-slot meal grid", "Subscribe CTA"]
+    },
+    {
+      "id": "orders",
+      "file": "app/(tabs)/orders.tsx",
+      "elements": ["Active plan gradient card", "Upcoming OrderRow list", "Past orders", "Empty state + CTA"]
+    },
+    {
+      "id": "wallet",
+      "file": "app/(tabs)/wallet.tsx",
+      "elements": ["Balance gradient card", "Points pill", "Transaction rows", "WhatsApp FAB"]
+    },
+    {
+      "id": "profile",
+      "file": "app/(tabs)/profile.tsx",
+      "elements": [
+        "Profile hero with avatar initial",
+        "SettingsRow list: language, allergies, menu, plans, support, logout",
+        "App version footer",
+        "WhatsApp FAB"
+      ]
+    }
+  ],
+  "components": [
+    { "name": "GlassCard", "props": ["glow", "accent stripe top 3px", "padding 24", "radius 16"] },
+    { "name": "SectionTitle", "props": ["overline", "title", "subtitle", "action link"] },
+    { "name": "Button", "variants": ["primary", "secondary", "ghost"], "sizes": ["md", "lg"] },
+    { "name": "PlanPill", "notes": "Orbit medallion, 3-up row, plan gradients" },
+    { "name": "MealSlotBar", "notes": "4 slots breakfast/lunch/dinner/snacks, dense mode" },
+    { "name": "MealGridCard", "notes": "2-col grid item with image + macros" },
+    { "name": "MealPlanComboCard", "notes": "Subscription bundle with price tag" },
+    { "name": "PromoBanner", "notes": "Auto carousel with discount stamp" },
+    { "name": "TodayMenuPreview", "notes": "Today's menu slot carousel" },
+    { "name": "DaySelector", "notes": "7-day horizontal picker with done dots" },
+    { "name": "Wordmark", "notes": "Ghithaa logo image onLight/onDark" },
+    { "name": "TabBar", "notes": "Floating pill 68h, inset 12, radius 24, 4 tabs" },
+    { "name": "WhatsAppFab", "notes": "Green circle FAB" },
+    { "name": "Input / phone field", "notes": "Login phone with +966 flag" },
+    { "name": "SettingsRow", "notes": "Profile list row with chevron" },
+    { "name": "OrderRow", "notes": "Order list item with date + status" },
+    { "name": "MacroStrip", "notes": "Calories protein carbs fat chips" },
+    { "name": "FeatureStrip", "notes": "Horizontal feature icons on home" }
+  ],
+  "navigation": {
+    "tabs": ["Home", "Orders", "Wallet", "Me"],
+    "hiddenRoutes": ["menu", "plans"],
+    "modals": ["meal detail", "subscribe flow"]
+  },
+  "rtl": {
+    "supported": true,
+    "locale": ["en", "ar"],
+    "font": "IBM Plex Sans Arabic",
+    "note": "Create EN + AR frames for key screens"
+  }
+}

@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ghithaa Mobile — Complete Figma Import</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #0F6E68;
+      --primary-dark: #0A554F;
+      --accent: #E8956B;
+      --accent-dark: #D9774A;
+      --bg: #F5F8F7;
+      --surface: #FFFFFF;
+      --text: #1A2E2B;
+      --text-sec: #5C6F6B;
+      --text-muted: #8A9A96;
+      --border: #E8EDEB;
+      --splash: #2C666E;
+      --breakfast: #E8956B;
+      --lunch: #0F6E68;
+      --dinner: #3D4F7C;
+      --snacks: #8B6BA8;
+      --wa: #25D366;
+      --r-sm: 8px;
+      --r-md: 12px;
+      --r-lg: 16px;
+      --r-xl: 24px;
+      --pad: 24px;
+      --w: 390px;
+      --h: 844px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'IBM Plex Sans Arabic', sans-serif;
+      background: #1a1a2e;
+      padding: 40px;
+      color: var(--text);
+    }
+    h1.page-title {
+      color: #fff;
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    p.page-sub {
+      color: #94a3b8;
+      margin-bottom: 32px;
+      max-width: 720px;
+      line-height: 1.5;
+    }
+    .import-note {
+      background: #0F6E68;
+      color: #fff;
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin-bottom: 40px;
+      max-width: 720px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .canvas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 48px 32px;
+    }
+    .screen-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .screen-label {
+      color: #e2e8f0;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .phone {
+      width: var(--w);
+      height: var(--h);
+      border-radius: 40px;
+      overflow: hidden;
+      position: relative;
+      background: var(--bg);
+      border: 3px solid #334155;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+      flex-shrink: 0;
+    }
+    .mesh-warm {
+      background: linear-gradient(135deg, #F5F8F7, #EDF6F4 50%, #F8F0E8);
+    }
+    .mesh-cool {
+      background: linear-gradient(135deg, #F5F8F7, #E8F0F5 50%, #EDF3F1);
+    }
+    .status {
+      height: 47px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 6px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .content { padding: 0 var(--pad); flex: 1; overflow: hidden; }
+    .scroll { padding-bottom: 100px; }
+    .hero-grad {
+      background: linear-gradient(135deg, #0F6E68, #0A554F, #07403B);
+      border-radius: var(--r-xl);
+      padding: 16px 20px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .glass {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 16px;
+      position: relative;
+    }
+    .glass::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), transparent);
+      border-radius: var(--r-lg) var(--r-lg) 0 0;
+    }
+    .glass.accent::before { background: linear-gradient(90deg, var(--accent), transparent); }
+    .overline {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+    .h2 { font-size: 18px; font-weight: 600; color: var(--text); }
+    .caption { font-size: 12px; color: var(--text-sec); line-height: 1.4; }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: var(--r-md);
+      padding: 14px 24px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      width: 100%;
+      text-align: center;
+    }
+    .btn-coral {
+      background: linear-gradient(135deg, #FFD4A8, #E8956B, #D9774A);
+      color: #fff;
+      border: none;
+      border-radius: var(--r-md);
+      padding: 14px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      width: 100%;
+    }
+    .tab-bar {
+      position: absolute;
+      bottom: 14px;
+      left: 12px;
+      right: 12px;
+      height: 68px;
+      background: rgba(255,255,255,0.96);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 6px 4px;
+    }
+    .tab { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 10px; font-weight: 700; color: var(--text-muted); }
+    .tab.on { color: var(--primary); }
+    .tab-icon { width: 34px; height: 28px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .tab.on .tab-icon { background: #E1F0EE; }
+    .fab {
+      position: absolute;
+      bottom: 96px;
+      right: 20px;
+      width: 52px;
+      height: 52px;
+      background: var(--wa);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 22px;
+      box-shadow: 0 4px 12px rgba(37,211,102,0.4);
+    }
+    .chip { font-size: 9px; font-weight: 600; padding: 4px 8px; border-radius: 99px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.88); }
+    .slot-bar { display: flex; gap: 6px; justify-content: center; margin-top: 12px; }
+    .slot { width: 52px; height: 52px; border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; color: #fff; gap: 2px; }
+    .plan-row { display: flex; gap: 6px; margin-top: 12px; }
+    .plan-card {
+      flex: 1;
+      height: 132px;
+      border-radius: var(--r-lg);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      text-align: center;
+      padding: 8px;
+    }
+    .plan-card.teal { background: linear-gradient(160deg, #2BB5A8, #0F6E68, #07403B); }
+    .plan-card.coral { background: linear-gradient(160deg, #FFD4A8, #E8956B, #C96B3A); }
+    .plan-card.indigo { background: linear-gradient(160deg, #8B9FD4, #3D4F7C, #1E2844); }
+    .medallion {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.4);
+      background: rgba(0,0,0,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+    .promo {
+      height: 140px;
+      border-radius: var(--r-lg);
+      background: linear-gradient(135deg, rgba(8,36,33,0.05), rgba(8,36,33,0.75)),
+        url('https://ghithaa.com/upload/other/f18bde8c-cdda-489a-af70-4b4b4a45963e.png') center/cover;
+      padding: 16px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .meal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+    .meal-card {
+      background: var(--surface);
+      border-radius: var(--r-md);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .meal-img { height: 90px; background: #EDF3F1; display: flex; align-items: center; justify-content: center; font-size: 32px; }
+    .meal-info { padding: 8px; }
+    .meal-name { font-size: 11px; font-weight: 700; }
+    .day-row { display: flex; gap: 4px; margin-top: 12px; overflow: hidden; }
+    .day { flex: 1; text-align: center; padding: 8px 4px; border-radius: var(--r-sm); background: var(--surface); border: 1px solid var(--border); font-size: 10px; font-weight: 600; color: var(--text-sec); }
+    .day.today { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .city-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-md);
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .city-row.on { border-color: var(--primary); background: #F1F8F7; }
+    .radio { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); }
+    .city-row.on .radio { border-color: var(--primary); background: var(--primary); box-shadow: inset 0 0 0 3px #fff; }
+    .phone-field {
+      display: flex; align-items: center;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 4px;
+      margin-top: 16px;
+    }
+    .phone-field .flag { padding: 10px 12px; font-size: 14px; font-weight: 600; border-right: 1px solid var(--border); }
+    .phone-field input { flex: 1; border: none; padding: 12px; font-family: inherit; font-size: 15px; outline: none; }
+    .sheet {
+      background: var(--surface);
+      border-radius: var(--r-xl) var(--r-xl) 0 0;
+      padding: 24px;
+      flex: 1;
+      margin-top: -20px;
+    }
+    .sheet-handle { width: 40px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 20px; }
+    .logo-text { font-size: 28px; font-weight: 700; color: #fff; letter-spacing: -1px; }
+    .logo-img { height: 32px; object-fit: contain; }
+    .combo-card {
+      background: var(--surface);
+      border-radius: var(--r-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .combo-hero { height: 100px; background: linear-gradient(transparent, rgba(8,36,33,0.9)), #EDF3F1; position: relative; padding: 12px; display: flex; align-items: flex-end; justify-content: space-between; }
+    .price-tag { background: linear-gradient(135deg, #FFD4A8, #E8956B); padding: 4px 10px; border-radius: 99px; font-size: 13px; font-weight: 800; color: #fff; }
+    .dur-row { display: flex; gap: 6px; margin-top: 8px; }
+    .dur { flex: 1; text-align: center; padding: 8px 4px; border-radius: var(--r-sm); border: 1px solid var(--border); font-size: 10px; font-weight: 700; color: var(--text-sec); }
+    .dur.on { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .settings-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .settings-icon { width: 36px; height: 36px; border-radius: 10px; background: #E1F0EE; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .wallet-card {
+      background: linear-gradient(135deg, #0F6E68, #07403B);
+      border-radius: var(--r-lg);
+      padding: 20px;
+      color: #fff;
+      margin-top: 16px;
+    }
+    .balance { font-size: 32px; font-weight: 800; margin-top: 8px; }
+    .flex-between { display: flex; justify-content: space-between; align-items: center; }
+    .gap-12 { gap: 12px; }
+    .gap-16 { gap: 16px; margin-top: 16px; }
+    .mt-8 { margin-top: 8px; }
+    .mt-12 { margin-top: 12px; }
+    .mt-16 { margin-top: 16px; }
+    .mb-8 { margin-bottom: 8px; }
+    .section-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
+    .action-link { font-size: 12px; font-weight: 600; color: var(--primary); }
+    .onboard-slide {
+      margin: 16px var(--pad);
+      border-radius: var(--r-xl);
+      padding: 32px 24px;
+      color: #fff;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 16px;
+    }
+    .onboard-icon { width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 32px; }
+    .dots { display: flex; gap: 6px; justify-content: center; margin: 16px 0; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+    .dot.on { background: var(--primary); width: 24px; border-radius: 4px; }
+    .top-bar { display: flex; align-items: center; justify-content: space-between; padding: 8px var(--pad); }
+    .back { width: 32px; height: 32px; border-radius: 11px; background: rgba(255,255,255,0.9); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
+    .inner { display: flex; flex-direction: column; height: 100%; }
+  </style>
+</head>
+<body>
+  <h1 class="page-title">Ghithaa Mobile — Complete UI</h1>
+  <p class="page-sub">All 14 screens · 390×844 · Import to Figma with plugin <strong>html.to.design</strong></p>
+  <div class="import-note">
+    <strong>Import to Figma:</strong> Install plugin "html.to.design" → Open this file in Chrome → Select all screens → Import.<br>
+    Or: File → Place image (screenshot each frame).
+  </div>
+
+  <div class="canvas">
+
+    <!-- 01 SPLASH -->
+    <div class="screen-wrap">
+      <div class="screen-label">01 · Splash</div>
+      <div class="phone" style="background:var(--splash);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;">
+        <img class="logo-img" style="height:80px;filter:brightness(10);" src="../assets/splash/ghithaa-wordmark.png" alt="Ghithaa" onerror="this.outerHTML='<div class=logo-text>Ghithaa</div>'" />
+        <p style="color:rgba(255,255,255,0.8);font-size:13px;">Calorie-counted meals</p>
+        <p style="color:rgba(255,255,255,0.6);font-size:11px;">Delivered daily across Saudi Arabia</p>
+      </div>
+    </div>
+
+    <!-- 02 ONBOARDING 1 -->
+    <div class="screen-wrap">
+      <div class="screen-label">02 · Onboarding 1</div>
+      <div class="phone mesh-warm">
+        <div class="inner">
+          <div class="status" style="color:var(--text-muted);">9:41</div>
+          <div class="top-bar"><span style="font-size:12px;color:var(--primary);font-weight:600;">EN | عربي</span><span style="font-size:12px;color:var(--text-muted);">Skip</span></div>
+          <div class="onboard-slide" style="background:linear-gradient(135deg,#FFD4A8,#E8956B,#D9774A);">
+            <div class="onboard-icon">🚴</div>
+            <h2 style="font-size:22px;font-weight:700;">Deliver to your Doorstep</h2>
+            <p style="font-size:13px;opacity:0.9;line-height:1.5;">Fresh meals delivered right to your door, every single day.</p>
+          </div>
+          <div class="dots"><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
+          <div style="padding:0 24px 32px;"><button class="btn-primary">Next</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 ONBOARDING 2 -->
+    <div class="screen-wrap">
+      <div class="screen-label">03 · Onboarding 2</div>
+      <div class="phone mesh-warm">
+        <div class="inner">
+          <div class="status" style="color:var(--text-muted);">9:41</div>
+          <div class="onboard-slide" style="background:linear-gradient(135deg,#7EC8E3,#0F6E68,#07403B);margin-top:60px;">
+            <div class="onboard-icon">❄️</div>
+            <h2 style="font-size:22px;font-weight:700;">Freeze Subscription</h2>
+            <p style="font-size:13px;opacity:0.9;">Change your mind? Freeze anytime and resume when ready.</p>
+          </div>
+          <div class="dots"><div class="dot"></div><div class="dot on"></div><div class="dot"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 CITY -->
+    <div class="screen-wrap">
+      <div class="screen-label">04 · City</div>
+      <div class="phone" style="background:var(--surface);">
+        <div class="inner">
+          <div class="status">9:41</div>
+          <div style="padding:24px 24px 16px;">
+            <h2 style="font-size:22px;font-weight:700;">Choose your city</h2>
+            <p class="caption mt-8">Before you continue, select the correct city</p>
+          </div>
+          <div style="padding:0 24px;flex:1;overflow:hidden;">
+            <div class="city-row on"><span>Jeddah</span><div class="radio"></div></div>
+            <div class="city-row"><span>Riyadh</span><div class="radio"></div></div>
+            <div class="city-row"><span>Dammam</span><div class="radio"></div></div>
+            <div class="city-row"><span>Makkah</span><div class="radio"></div></div>
+          </div>
+          <div style="padding:24px;"><button class="btn-primary">Continue</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 LOGIN -->
+    <div class="screen-wrap">
+      <div class="screen-label">05 · Login</div>
+      <div class="phone" style="background:var(--primary-dark);display:flex;flex-direction:column;">
+        <div style="padding:60px 24px 40px;text-align:center;color:#fff;">
+          <div class="logo-text mb-8">Ghithaa</div>
+          <p style="font-size:12px;opacity:0.85;">Calorie-counted meals, delivered daily</p>
+        </div>
+        <div class="sheet" style="flex:1;">
+          <div class="sheet-handle"></div>
+          <h2 style="font-size:22px;font-weight:700;">Welcome</h2>
+          <p class="caption">Login or create an account</p>
+          <div class="phone-field">
+            <span class="flag">🇸🇦 +966</span>
+            <input placeholder="5XX XXX XXX" />
+          </div>
+          <button class="btn-primary mt-16">Continue</button>
+          <p style="text-align:center;margin-top:16px;font-size:13px;color:var(--primary);font-weight:600;">Continue as Guest</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 HOME -->
+    <div class="screen-wrap">
+      <div class="screen-label">06 · Home</div>
+      <div class="phone mesh-warm">
+        <div class="inner">
+          <div class="status" style="color:var(--text-muted);">9:41</div>
+          <div class="content scroll" style="padding-top:8px;">
+            <div class="hero-grad">
+              <div class="flex-between mb-8">
+                <span class="logo-text" style="font-size:18px;">Ghithaa</span>
+                <span style="font-size:18px;">🔔</span>
+              </div>
+              <div class="flex-between">
+                <div>
+                  <p style="font-size:20px;font-weight:800;">Welcome, Ahad</p>
+                  <p style="font-size:12px;opacity:0.85;margin-top:2px;">Calorie-counted meals, delivered daily</p>
+                </div>
+                <span class="chip">📍 Jeddah</span>
+              </div>
+              <div style="display:flex;gap:5px;margin-top:12px;flex-wrap:wrap;">
+                <span class="chip">Breakfast</span><span class="chip">Lunch</span><span class="chip">Dinner</span><span class="chip">Snacks</span>
+              </div>
+            </div>
+            <div class="promo mt-16">
+              <p style="font-size:10px;font-weight:700;opacity:0.9;">LIMITED OFFER</p>
+              <p style="font-size:18px;font-weight:800;margin-top:4px;">Start your<br>wellness journey</p>
+              <p style="font-size:11px;opacity:0.85;margin-top:4px;">15% off first subscription</p>
+            </div>
+            <div class="glass mt-16">
+              <div class="section-head"><div><p class="overline">Day rhythm</p><p class="h2">Your daily rhythm</p></div><span class="action-link">Menu →</span></div>
+              <div class="slot-bar">
+                <div class="slot" style="background:linear-gradient(135deg,#FFD4A8,var(--breakfast));">🌅<br>Breakfast</div>
+                <div class="slot" style="background:linear-gradient(135deg,#1A8A82,var(--lunch));">☀️<br>Lunch</div>
+                <div class="slot" style="background:linear-gradient(135deg,#5A6FA0,var(--dinner));">🌙<br>Dinner</div>
+                <div class="slot" style="background:linear-gradient(135deg,#A88BC8,var(--snacks));">🍎<br>Snacks</div>
+              </div>
+            </div>
+            <div class="glass accent mt-16">
+              <p class="h2">Our Plans</p>
+              <p class="caption">What is your health goal?</p>
+              <div class="plan-row">
+                <div class="plan-card teal"><div class="medallion">⚖️</div>Lose Weight</div>
+                <div class="plan-card coral"><div class="medallion">❤️</div>Lifestyle</div>
+                <div class="plan-card indigo"><div class="medallion">💪</div>Gain Muscle</div>
+              </div>
+            </div>
+          </div>
+          <div class="fab">💬</div>
+          <div class="tab-bar">
+            <div class="tab on"><div class="tab-icon">🏠</div>Home</div>
+            <div class="tab"><div class="tab-icon">📦</div>Orders</div>
+            <div class="tab"><div class="tab-icon">👛</div>Wallet</div>
+            <div class="tab"><div class="tab-icon">👤</div>Me</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 07 MENU -->
+    <div class="screen-wrap">
+      <div class="screen-label">07 · Menu</div>
+      <div class="phone mesh-warm">
+        <div class="inner">
+          <div class="top-bar"><div class="back">←</div><span style="font-weight:700;">Menu</span><span class="logo-text" style="font-size:14px;color:var(--primary);">Ghithaa</span></div>
+          <div class="content">
+            <div class="hero-grad" style="padding:12px 16px;margin-bottom:12px;">
+              <p style="font-size:11px;opacity:0.8;text-transform:uppercase;">Pick a day</p>
+              <p style="font-size:16px;font-weight:800;">Thursday · 12 meals today</p>
+            </div>
+            <div class="day-row">
+              <div class="day">Sun</div><div class="day">Mon</div><div class="day">Tue</div><div class="day">Wed</div>
+              <div class="day today">Thu</div><div class="day">Fri</div><div class="day">Sat</div>
+            </div>
+            <div class="slot-bar" style="margin:12px 0;">
+              <div class="slot" style="background:var(--lunch);width:44px;height:44px;font-size:8px;">All</div>
+              <div class="slot" style="background:var(--breakfast);width:44px;height:44px;font-size:8px;">🌅</div>
+              <div class="slot" style="background:var(--lunch);width:44px;height:44px;font-size:8px;">☀️</div>
+              <div class="slot" style="background:var(--dinner);width:44px;height:44px;font-size:8px;">🌙</div>
+              <div class="slot" style="background:var(--snacks);width:44px;height:44px;font-size:8px;">🍎</div>
+            </div>
+            <div class="meal-grid">
+              <div class="meal-card"><div class="meal-img">🥗</div><div class="meal-info"><p class="meal-name">Grilled Chicken Bowl</p><p class="caption">420 kcal</p></div></div>
+              <div class="meal-card"><div class="meal-img">🍳</div><div class="meal-info"><p class="meal-name">Protein Omelette</p><p class="caption">380 kcal</p></div></div>
+              <div class="meal-card" style="border-color:var(--primary);"><div class="meal-img">🥙</div><div class="meal-info"><p class="meal-name">Shawarma Wrap ✓</p><p class="caption">510 kcal</p></div></div>
+              <div class="meal-card"><div class="meal-img">🐟</div><div class="meal-info"><p class="meal-name">Salmon Plate</p><p class="caption">450 kcal</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 PLANS -->
+    <div class="screen-wrap">
+      <div class="screen-label">08 · Plans</div>
+      <div class="phone mesh-warm">
+        <div class="inner">
+          <div class="top-bar"><div class="back">←</div><span style="font-weight:700;">Plans</span><span></span></div>
+          <div class="content scroll">
+            <div class="hero-grad" style="display:flex;gap:12px;align-items:center;">
+              <div style="width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:28px;">❤️</div>
+              <div><p style="font-size:18px;font-weight:800;">Lifestyle</p><p style="font-size:11px;opacity:0.85;margin-top:4px;">Balanced nutrition for everyday wellness</p></div>
+            </div>
+            <div class="slot-bar mt-16">
+              <div class="slot" style="background:var(--lunch);width:48px;height:48px;">All</div>
+              <div class="slot" style="background:var(--breakfast);width:48px;height:48px;">🌅</div>
+              <div class="slot" style="background:var(--lunch);width:48px;height:48px;">☀️</div>
+              <div class="slot" style="background:var(--dinner);width:48px;height:48px;">🌙</div>
+            </div>
+            <div class="combo-card mt-16">
+              <div class="combo-hero"><span style="color:#fff;font-weight:800;font-size:14px;">Full Day</span><span class="price-tag">299 SAR</span></div>
+              <div style="padding:12px;"><p class="caption">Breakfast · Lunch · Dinner</p><span style="font-size:10px;background:#FFF4EC;color:var(--accent-dark);padding:2px 8px;border-radius:99px;font-weight:700;">Most Popular</span></div>
+            </div>
+            <div class="combo-card">
+              <div class="combo-hero"><span style="color:#fff;font-weight:800;font-size:14px;">Breakfast + Lunch</span><span class="price-tag">199 SAR</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 09 SUBSCRIBE -->
+    <div class="screen-wrap">
+      <div class="screen-label">09 · Subscribe</div>
+      <div class="phone mesh-warm">
+        <div class="inner">
+          <div class="top-bar"><div class="back">←</div><span style="font-weight:700;">Subscribe</span><span class="logo-text" style="font-size:14px;color:var(--primary);">Ghithaa</span></div>
+          <div class="content scroll" style="padding-bottom:80px;">
+            <div class="hero-grad" style="padding:12px 16px;">
+              <p style="font-size:9px;opacity:0.75;text-transform:uppercase;">Lifestyle</p>
+              <p style="font-size:15px;font-weight:800;">Full Day</p>
+              <p style="font-size:10px;opacity:0.85;">Starts 05 Jul</p>
+            </div>
+            <div class="glass mt-12" style="padding:12px;">
+              <p class="overline">Extra Add-ons</p>
+              <div style="display:flex;gap:8px;margin-top:8px;">
+                <div style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px;"><p style="font-size:11px;font-weight:700;">Main Dish</p><p style="font-size:9px;color:var(--accent-dark);">40 / Day</p></div>
+                <div style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px;"><p style="font-size:11px;font-weight:700;">Side Item</p><p style="font-size:9px;color:var(--accent-dark);">15 / Day</p></div>
+              </div>
+            </div>
+            <div class="glass mt-12" style="padding:12px;">
+              <p class="overline">Choose Plan Duration</p>
+              <div class="dur-row">
+                <div class="dur on">1 Week</div>
+                <div class="dur">1 Month</div>
+                <div class="dur">3 Months</div>
+              </div>
+            </div>
+          </div>
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:16px 24px;background:var(--surface);border-top:1px solid var(--border);">
+            <div class="flex-between mb-8"><span style="font-weight:800;">Total</span><span class="price-tag">254 SAR</span></div>
+            <button class="btn-coral">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 ORDERS -->
+    <div class="screen-wrap">
+      <div class="screen-label">10 · Orders</div>
+      <div class="phone mesh-cool">
+        <div class="inner">
+          <div class="status" style="color:var(--text-muted);">9:41</div>
+          <div class="content scroll">
+            <p class="overline">Orders</p>
+            <p class="h2 mb-8">Orders</p>
+            <div class="hero-grad mt-8">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-size:24px;">💪</span>
+                <span class="chip" style="background:rgba(255,255,255,0.2);">● Active</span>
+              </div>
+              <p style="font-size:18px;font-weight:800;margin-top:12px;">Lifestyle</p>
+              <p style="font-size:11px;opacity:0.85;margin-top:4px;">Balanced nutrition for everyday wellness</p>
+            </div>
+            <p class="overline mt-16">Upcoming</p>
+            <div class="glass mt-8" style="padding:12px;">
+              <div class="flex-between"><span style="font-weight:700;font-size:13px;">Thu, 10 Jul</span><span class="caption">Breakfast · Lunch</span></div>
+            </div>
+          </div>
+          <div class="tab-bar">
+            <div class="tab"><div class="tab-icon">🏠</div>Home</div>
+            <div class="tab on"><div class="tab-icon">📦</div>Orders</div>
+            <div class="tab"><div class="tab-icon">👛</div>Wallet</div>
+            <div class="tab"><div class="tab-icon">👤</div>Me</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11 WALLET -->
+    <div class="screen-wrap">
+      <div class="screen-label">11 · Wallet</div>
+      <div class="phone mesh-cool">
+        <div class="inner">
+          <div class="status" style="color:var(--text-muted);">9:41</div>
+          <div class="content">
+            <p class="h2">Wallet</p>
+            <div class="wallet-card">
+              <div class="flex-between"><span style="font-size:12px;opacity:0.85;">Wallet balance</span><span>👛</span></div>
+              <p class="balance">150.00 <span style="font-size:16px;">SAR</span></p>
+              <span class="chip" style="margin-top:12px;display:inline-block;background:rgba(255,255,255,0.15);">⭐ 300 points</span>
+            </div>
+            <div class="glass mt-16" style="padding:12px;">
+              <div style="display:flex;gap:12px;align-items:center;">
+                <span style="width:40px;height:40px;background:#E1F0EE;border-radius:10px;display:flex;align-items:center;justify-content:center;">✅</span>
+                <div><p style="font-size:13px;font-weight:700;">You are subscribed!</p><p class="caption">Points earned from subscription</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="fab">💬</div>
+          <div class="tab-bar">
+            <div class="tab"><div class="tab-icon">🏠</div>Home</div>
+            <div class="tab"><div class="tab-icon">📦</div>Orders</div>
+            <div class="tab on"><div class="tab-icon">👛</div>Wallet</div>
+            <div class="tab"><div class="tab-icon">👤</div>Me</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 PROFILE -->
+    <div class="screen-wrap">
+      <div class="screen-label">12 · Profile (Me)</div>
+      <div class="phone mesh-cool">
+        <div class="inner">
+          <div class="status" style="color:var(--text-muted);">9:41</div>
+          <div class="content scroll">
+            <div class="hero-grad" style="text-align:center;padding:24px;">
+              <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#FFD4A8,#E8956B);margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;">A</div>
+              <p style="font-size:18px;font-weight:800;margin-top:12px;">Ahad</p>
+              <p style="font-size:12px;opacity:0.85;">Lifestyle plan</p>
+            </div>
+            <div class="glass mt-16" style="padding:0 16px;">
+              <div class="settings-row"><div class="settings-icon">🌐</div><span>Arabic - عربي</span><span>›</span></div>
+              <div class="settings-row"><div class="settings-icon">🍽️</div><span>Menu</span><span>›</span></div>
+              <div class="settings-row"><div class="settings-icon">📋</div><span>Plans</span><span>›</span></div>
+              <div class="settings-row"><div class="settings-icon">💬</div><span>Chat on WhatsApp</span><span>›</span></div>
+              <div class="settings-row" style="border:none;color:#E03E3E;"><div class="settings-icon" style="background:#FDECEC;">🚪</div><span>Log out</span></div>
+            </div>
+            <p style="text-align:center;margin-top:24px;font-size:11px;color:var(--text-muted);">v1.0.0 · © Ghithaa</p>
+          </div>
+          <div class="fab">💬</div>
+          <div class="tab-bar">
+            <div class="tab"><div class="tab-icon">🏠</div>Home</div>
+            <div class="tab"><div class="tab-icon">📦</div>Orders</div>
+            <div class="tab"><div class="tab-icon">👛</div>Wallet</div>
+            <div class="tab on"><div class="tab-icon">👤</div>Me</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13 MEAL DETAIL -->
+    <div class="screen-wrap">
+      <div class="screen-label">13 · Meal Detail</div>
+      <div class="phone" style="background:var(--surface);">
+        <div class="inner">
+          <div style="height:240px;background:linear-gradient(transparent,rgba(0,0,0,0.6)),#EDF3F1;display:flex;align-items:flex-end;padding:16px;color:#fff;">
+            <div class="back" style="position:absolute;top:56px;left:20px;">←</div>
+            <p style="font-size:20px;font-weight:800;">Grilled Chicken Bowl</p>
+          </div>
+          <div style="padding:20px 24px;">
+            <div style="display:flex;gap:8px;margin-bottom:16px;">
+              <span style="font-size:11px;font-weight:700;padding:6px 10px;background:#FFF4EC;color:#E8743B;border-radius:8px;">420 kcal</span>
+              <span style="font-size:11px;font-weight:700;padding:6px 10px;background:#E1F0EE;color:var(--success);border-radius:8px;">32g protein</span>
+            </div>
+            <p class="caption" style="line-height:1.6;">Tender grilled chicken with quinoa, roasted vegetables and tahini dressing.</p>
+            <button class="btn-primary" style="margin-top:24px;">Add to plan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14 SUBSCRIBE MEALS -->
+    <div class="screen-wrap">
+      <div class="screen-label">14 · Subscribe Meals</div>
+      <div class="phone mesh-warm">
+        <div class="inner">
+          <div class="top-bar"><div class="back">←</div><span style="font-weight:700;">Choose meals</span><span></span></div>
+          <div class="content scroll" style="padding-bottom:80px;">
+            <p class="caption">Tap a day, then pick meals for each slot.</p>
+            <div class="glass mt-12" style="padding:12px;">
+              <p style="font-weight:700;font-size:13px;">Mon, 07 Jul</p>
+              <div class="meal-grid" style="margin-top:8px;">
+                <div class="meal-card"><div class="meal-img" style="height:60px;">🥗</div><div class="meal-info"><p class="meal-name">Breakfast</p></div></div>
+                <div class="meal-card"><div class="meal-img" style="height:60px;">🍳</div><div class="meal-info"><p class="meal-name">Lunch</p></div></div>
+              </div>
+            </div>
+            <div class="glass mt-12" style="padding:12px;">
+              <p style="font-weight:700;font-size:13px;">Tue, 08 Jul</p>
+              <div class="meal-grid" style="margin-top:8px;">
+                <div class="meal-card"><div class="meal-img" style="height:60px;">🥙</div><div class="meal-info"><p class="meal-name">Breakfast</p></div></div>
+                <div class="meal-card"><div class="meal-img" style="height:60px;">🐟</div><div class="meal-info"><p class="meal-name">Lunch</p></div></div>
+              </div>
+            </div>
+          </div>
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:16px 24px;background:var(--surface);border-top:1px solid var(--border);">
+            <button class="btn-coral">Confirm & subscribe</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

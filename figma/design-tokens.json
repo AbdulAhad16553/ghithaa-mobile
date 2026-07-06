@@ -1,0 +1,101 @@
+{
+  "$schema": "https://tr.designtokens.org/format/v1.0.0",
+  "ghithaa": {
+    "color": {
+      "primary": { "$type": "color", "$value": "#0F6E68" },
+      "primary-dark": { "$type": "color", "$value": "#0A554F" },
+      "primary-darker": { "$type": "color", "$value": "#07403B" },
+      "primary-light": { "$type": "color", "$value": "#E1F0EE" },
+      "primary-tint": { "$type": "color", "$value": "#F1F8F7" },
+      "splash": { "$type": "color", "$value": "#2C666E" },
+      "ink": { "$type": "color", "$value": "#103330" },
+      "accent": { "$type": "color", "$value": "#E8956B" },
+      "accent-dark": { "$type": "color", "$value": "#D9774A" },
+      "accent-light": { "$type": "color", "$value": "#FBEDE3" },
+      "background": { "$type": "color", "$value": "#F5F8F7" },
+      "surface": { "$type": "color", "$value": "#FFFFFF" },
+      "surface-alt": { "$type": "color", "$value": "#EDF3F1" },
+      "text": { "$type": "color", "$value": "#1A2E2B" },
+      "text-secondary": { "$type": "color", "$value": "#5C6F6B" },
+      "text-muted": { "$type": "color", "$value": "#8A9A96" },
+      "text-inverse": { "$type": "color", "$value": "#FFFFFF" },
+      "border": { "$type": "color", "$value": "#E8EDEB" },
+      "breakfast": { "$type": "color", "$value": "#E8956B" },
+      "lunch": { "$type": "color", "$value": "#0F6E68" },
+      "dinner": { "$type": "color", "$value": "#3D4F7C" },
+      "snacks": { "$type": "color", "$value": "#8B6BA8" },
+      "whatsapp": { "$type": "color", "$value": "#25D366" },
+      "success": { "$type": "color", "$value": "#0F8F6A" },
+      "error": { "$type": "color", "$value": "#E03E3E" },
+      "star": { "$type": "color", "$value": "#F5B301" }
+    },
+    "gradient": {
+      "hero": {
+        "$type": "gradient",
+        "$value": [
+          { "color": "#0F6E68", "position": 0 },
+          { "color": "#0A554F", "position": 0.5 },
+          { "color": "#07403B", "position": 1 }
+        ]
+      },
+      "sunrise": {
+        "$type": "gradient",
+        "$value": [
+          { "color": "#FFD4A8", "position": 0 },
+          { "color": "#E8956B", "position": 0.5 },
+          { "color": "#D9774A", "position": 1 }
+        ]
+      },
+      "twilight": {
+        "$type": "gradient",
+        "$value": [
+          { "color": "#5A6FA0", "position": 0 },
+          { "color": "#3D4F7C", "position": 0.5 },
+          { "color": "#2A3658", "position": 1 }
+        ]
+      },
+      "mesh-warm": {
+        "$type": "gradient",
+        "$value": [
+          { "color": "#F5F8F7", "position": 0 },
+          { "color": "#EDF6F4", "position": 0.5 },
+          { "color": "#F8F0E8", "position": 1 }
+        ]
+      }
+    },
+    "spacing": {
+      "xs": { "$type": "dimension", "$value": "4px" },
+      "sm": { "$type": "dimension", "$value": "8px" },
+      "md": { "$type": "dimension", "$value": "16px" },
+      "lg": { "$type": "dimension", "$value": "24px" },
+      "xl": { "$type": "dimension", "$value": "32px" },
+      "xxl": { "$type": "dimension", "$value": "48px" },
+      "screen-padding": { "$type": "dimension", "$value": "24px" }
+    },
+    "radius": {
+      "sm": { "$type": "dimension", "$value": "8px" },
+      "md": { "$type": "dimension", "$value": "12px" },
+      "lg": { "$type": "dimension", "$value": "16px" },
+      "xl": { "$type": "dimension", "$value": "24px" },
+      "full": { "$type": "dimension", "$value": "999px" },
+      "tab-bar": { "$type": "dimension", "$value": "24px" }
+    },
+    "typography": {
+      "font-family": { "$type": "fontFamily", "$value": "IBM Plex Sans Arabic" },
+      "display": { "$type": "typography", "$value": { "fontFamily": "IBM Plex Sans Arabic", "fontWeight": 700, "fontSize": "30px", "lineHeight": "36px", "letterSpacing": "-0.6px" } },
+      "h1": { "$type": "typography", "$value": { "fontFamily": "IBM Plex Sans Arabic", "fontWeight": 700, "fontSize": "22px", "lineHeight": "28px", "letterSpacing": "-0.4px" } },
+      "h2": { "$type": "typography", "$value": { "fontFamily": "IBM Plex Sans Arabic", "fontWeight": 600, "fontSize": "18px", "lineHeight": "24px", "letterSpacing": "-0.25px" } },
+      "body": { "$type": "typography", "$value": { "fontFamily": "IBM Plex Sans Arabic", "fontWeight": 400, "fontSize": "14px", "lineHeight": "21px" } },
+      "caption": { "$type": "typography", "$value": { "fontFamily": "IBM Plex Sans Arabic", "fontWeight": 500, "fontSize": "12px", "lineHeight": "16px" } },
+      "overline": { "$type": "typography", "$value": { "fontFamily": "IBM Plex Sans Arabic", "fontWeight": 600, "fontSize": "11px", "lineHeight": "14px", "letterSpacing": "0.6px", "textCase": "uppercase" } },
+      "tab-label": { "$type": "typography", "$value": { "fontFamily": "IBM Plex Sans Arabic", "fontWeight": 700, "fontSize": "10px", "lineHeight": "12px" } }
+    },
+    "device": {
+      "frame-width": { "$type": "dimension", "$value": "390px" },
+      "frame-height": { "$type": "dimension", "$value": "844px" },
+      "status-bar": { "$type": "dimension", "$value": "47px" },
+      "tab-bar-height": { "$type": "dimension", "$value": "68px" },
+      "tab-bar-inset": { "$type": "dimension", "$value": "12px" }
+    }
+  }
+}
